@@ -1,3 +1,5 @@
+const { combineTableNames } = require('sequelize/lib/utils')
+const { message } = require('../middleware/productoSchema')
 const {Componente, Fabricante, Producto} = require('../models/')
 
 const getProductos = async(req,res) =>{
@@ -59,19 +61,29 @@ const borrarProducto = async(req,res) =>{
     const idProducto = req.params.id
     
     if(!idProducto){
-        return res.status(400).json({message:'ID erronea. '})
+        return res.status(400).json({message:'ID erronea.'})
     }
 
     try{
+        const producto = await Producto.findByPk(idProducto,{
+            include:[Fabricante,Componente]
+        })
+
+        if (!producto){
+            return res.status(404).json({message:'Producto no encontrado'})
+        }
+        if(producto.fabricantes.length > 0 || producto.componentes.length > 0){
+            const componentes = producto.componentes
+            const fabricantes = producto.fabricantes
+            return res.status(400).json({message:'No se puede eliminar el producto porque está asociado a un fabricante/componente',componentes,fabricantes})
+        }
+
         const eliminar = await Producto.destroy({
             where:{
                 id:idProducto
             }
         })
 
-        if (!eliminar){
-            return res.status(404).json({message:'Producto no encontrado'})
-        }
         return res.status(200).json({message:'Producto eliminado'})
     }
     catch(error){
@@ -79,6 +91,8 @@ const borrarProducto = async(req,res) =>{
     }
 
 }
+
+
 const getFabricantesByProducto = async (req,res) =>{
     const id = req.params.id
     try{

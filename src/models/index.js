@@ -13,6 +13,8 @@ Producto.belongsToMany(Componente , {through: 'ProductoComponente'})
 Componente.belongsToMany(Producto, {through: 'ProductoComponente'})
 
 
+
+//onDelete:'CASCADE' Sirve para que, al eliminar un registro, se elimine tambien las relaciones con otras tablas
 module.exports = {
     Componente,
     Producto,
