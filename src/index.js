@@ -3,7 +3,7 @@ const sequelize = require('../config/database')
 const { Producto , Fabricante, Componente} = require('./models/')
 const route = require('./routes/index')
 const {crearDatosIniciales} = require('./seeders/')
-
+require('dotenv').config()
 
 
 const app = express()
@@ -19,9 +19,10 @@ async function sincronizar() {
     console.log('Tablas creadas');
     await crearDatosIniciales(); // Sembrar datos
 }
-
 sincronizar()
-const PORT = 3000
+
+
+const PORT = process.env.DB_PORT
 app.listen(PORT, () =>{
     console.log(`Ejecutando en el puerto ${PORT}`)
 })
