@@ -9,8 +9,8 @@ Producto.belongsToMany(Fabricante, {through:'ProductoFabricante'})
 Fabricante.belongsToMany(Producto, {through:'ProductoFabricante'})
 
 
-Producto.belongsToMany(Componente , {through: 'ProductoComponente'})
-Componente.belongsToMany(Producto, {through: 'ProductoComponente'})
+Producto.belongsToMany(Componente , {through: 'ProductoComponente', onDelete: 'CASCADE' })
+Componente.belongsToMany(Producto, {through: 'ProductoComponente', onDelete: 'CASCADE' })
 
 
 

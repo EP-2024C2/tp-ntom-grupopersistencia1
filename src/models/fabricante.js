@@ -23,7 +23,8 @@ Fabricante.init({
     }  
 },{
     sequelize,
-    modelName:'fabricante'
+    modelName:'fabricante',
+    timestamps: false
 })
 
 module.exports = Fabricante

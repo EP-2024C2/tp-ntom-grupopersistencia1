@@ -17,7 +17,8 @@ Producto.init({
     pathimg:DataTypes.STRING()
     },{
         sequelize,
-        modelName:'producto'
+        modelName:'producto',
+        timestamps: false
     })
 
 module.exports = Producto

@@ -13,7 +13,8 @@ Componente.init({
     
 },{
     sequelize,
-    modelName:'componente'
+    modelName:'componente',
+    timestamps: false
 })
 
 module.exports = Componente
